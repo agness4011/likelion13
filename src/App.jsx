@@ -20,11 +20,11 @@ export default function App() { //React 컴포넌트를 내보내는 코드
       <main className="main">
         <section id="about" className="section">
           <h2>안녕하세요!</h2>
-          <p>만나서 반갑습니다. 저는 컴퓨터공학과에 재학중인 22학번 홍길동입니다.</p>
+          <p>만나서 반갑습니다. 저는 미래융합학부1 재학중인 25학번 김현수입니다.</p>
           <p>함께 즐거운 동아리 생활 보내봐요 ^^</p>
           <img
             className="img"
-            src="https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/eViY/image/is3UFbmo7Gwuiln43EznmVZFwXo.jpg"
+            src="https://i.imgur.com/FiPyAGy.jpeg"
             alt="about_image"
           />
         </section>
@@ -34,34 +34,34 @@ export default function App() { //React 컴포넌트를 내보내는 코드
           
           <h3>취미</h3>
           <ul>
-            <li>농구 보기</li>
+            <li>유튜브 보기</li>
             <li>음악 감상</li>
-            <li>기타 치기</li>
+            <li>독서하기</li>
             <li>코딩 ^^</li>
           </ul>
           <img
             className="img"
-            src="https://i.ytimg.com/vi/dIt_N7yNTgk/mqdefault.jpg"
+            src="https://i.imgur.com/SFRU4kA.jpeg"
             alt="guitar_image"
           />
 
           <h3>좋아하는 음식 순위</h3>
           <ol>
-            <li>타코</li>
-            <li>떡볶이</li>
-            <li>햄버거</li>
+            <li>닭발</li>
+            <li>라면</li>
+            <li>참치</li>
           </ol>
           <img
             className="img"
-            src="https://i.pinimg.com/474x/7a/9e/ec/7a9eec73158b3e0a84691551180fef8e.jpg"
-            alt="hamburger_image"
+            src="https://i.imgur.com/QgjPoNr.jpeg"
+            alt="ramen_image"
           />
         </section>
 
         <section id="contact" className="section">
           <h2>연락하기</h2>
           <p>이메일: skulikelion@example.com</p>
-          <p>전화번호: 010-1234-5678</p>
+          <p>전화번호: 010-9863-2030</p>
         </section>
       </main>
 

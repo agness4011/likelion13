@@ -1,22 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
+import { Outlet } from "react-router";
+import styled from "styled-components";
 
 function MyLayout() {
-  const [name, setName] = useState('');
-
-  useEffect(() => {
-    const storedName = localStorage.getItem('name');
-    if (storedName) setName(storedName);
-  }, []);
-
   return (
-    <div className="p-6 text-white">
-      <h1 className="text-3xl font-bold mb-4">내 계정</h1>
-      <img src="/profile.png" alt="profile" className="w-32 h-32 rounded-full mb-4" />
-      <p className="text-xl mb-2">이름: {name || '김현수'}</p>
-      <Link to="/edit" className="text-blue-400 underline">이름 변경하기</Link>
-    </div>
+    <Layout>
+      <Navbar />
+      <Content>
+        <Outlet />
+      </Content>
+      <Footer />
+    </Layout>
   );
 }
+
+const Layout = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+`;
+
+const Content = styled.main`
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+`;
 
 export default MyLayout;

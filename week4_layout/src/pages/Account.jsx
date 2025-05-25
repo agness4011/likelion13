@@ -33,23 +33,25 @@ const Button = styled.button`
   }
 `;
 
-function EditNamePage() {
+function Account() {
   const navigate = useNavigate();
   const [name, setName] = useState('');
 
   useEffect(() => {
-    const storedName = localStorage.getItem('name');
-    if (storedName) setName(storedName);
+    const data = localStorage.getItem('account');
+    setEdit(JSON.parse(data));
   }, []);
 
-  const handleSave = () => {
-    localStorage.setItem('name', name);
-    navigate('/');
+  function handleSubmit(e) {
+    e.preventDefault();
+    localStorage.setItem('account', 
+JSON.stringify(edit));
+    navigate('/account');
   };
 
   return (
     <Container>
-      <Title>이름 변경</Title>
+      <Title>내 계정</Title>
       <Input
         type="text"
         value={name}
@@ -60,4 +62,4 @@ function EditNamePage() {
   );
 }
 
-export default EditNamePage;
+export default Account;

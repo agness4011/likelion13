@@ -6,7 +6,7 @@ import logoImg from '../assets/logo.png';
 export default function Header() {
   return (
     <HeaderWrapper>
-      <Link to="/detail/:id">
+      <Link to="/">
         <LogoImg src={logoImg} alt="KREAM Logo" />
       </Link>
     </HeaderWrapper>

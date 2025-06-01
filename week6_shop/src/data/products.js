@@ -5,7 +5,7 @@ export const products = [
   { id: 4, brand: "Mizuno", name: 'Mizuno Racer Trail SE Silver Grey', price: 143000, image: 'https://ifh.cc/g/ZoXLQA.png' },
   { id: 5, brand: "New Balance", name: 'New Balance 574 Classic Navy', price: 95000, image: 'https://ifh.cc/g/B8RVwh.png' },
   { id: 6, brand: "Puma", name: 'Puma Suede Classic Black', price: 76000, image: 'https://ifh.cc/g/RmYRY0.jpg' },
-  { id: 7, brand: "Converse", name: 'Converse Chuck Taylor All Star', price: 62000, image: 'https://ifh.cc/g/jV9BcV.jpg' },
+  { id: 7, brand: "Converse", name: 'Converse Chuck Taylor All Star', price: 62000, image: 'https://ifh.cc/g/Y1dhfH.jpg' },
   { id: 8, brand: "Reebok", name: 'Reebok Classic Leather', price: 89000, image: 'https://ifh.cc/g/dxxJ9H.jpg' },
 ];
 

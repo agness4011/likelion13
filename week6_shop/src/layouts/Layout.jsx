@@ -5,7 +5,7 @@ import styled from 'styled-components';
 export default function Layout({ children }) {
   return (
     <Container>
-      <Header />
+      <Header />   
       <Main>{children}</Main>
     </Container>
   );

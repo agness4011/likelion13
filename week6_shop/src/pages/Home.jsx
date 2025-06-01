@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
+import { Link } from 'react-router';
 
 export default function Home() {
   const [sortAsc, setSortAsc] = useState(true);
@@ -87,6 +88,12 @@ export default function Home() {
       </TopBar>
       <ProductList>
         {filteredProducts.map(item => (
+          <Link
+           key={item.id}
+           to={`/detail/${item.id}`}
+           style={{ textDecoration: 'none',
+           color:'inherit'}}
+          >
           <ProductCard
             key={item.id}
             id={item.id}
@@ -95,6 +102,7 @@ export default function Home() {
             price={item.price}
             image={item.image}
           />
+          </Link>
         ))}
       </ProductList>
     </Wrapper>
@@ -133,7 +141,7 @@ const SortToggle = styled.div`
     &:focus,
     &:focus-visible {
       border: 1px solid #000000;
-      color: #000000;
+      color: #000000
     }
   }
 `;

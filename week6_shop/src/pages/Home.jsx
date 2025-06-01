@@ -128,10 +128,12 @@ const SortToggle = styled.div`
     cursor: pointer;
     font-size: 0.9rem;
     border-radius: 8px;
+    color: #787878;
     outline: none;
     &:focus,
     &:focus-visible {
-      border: 1px solid #ccc;
+      border: 1px solid #000000;
+      color: #000000;
     }
   }
 `;

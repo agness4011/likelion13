@@ -1,13 +1,19 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-export default function ProductCard({ brand, name, price, image }) {
+export default function ProductCard({ title, price, images }) {
+  const imgUrl =
+    typeof images === "string"
+      ? images
+      : Array.isArray(images)
+      ? images[0]
+      : "";
+
   return (
     <Card>
-      <Img src={image} alt={name} />
+      <Img src={imgUrl} alt={title} />
       <Info>
-        <Brand>{brand}</Brand>
-        <Name>{name}</Name>
+        <Title>{title}</Title>
         <Price>{price.toLocaleString()}원</Price>
       </Info>
     </Card>
@@ -23,24 +29,22 @@ const Card = styled.div`
   margin: 8px auto;
   background: #fff;
 `;
+
 const Img = styled.img`
   width: 100%;
   height: auto;
 `;
+
 const Info = styled.div`
   padding: 12px;
 `;
-const Brand = styled.div`
-  font-size: 0.9rem;
-  color: #888;
-  font-weight: 600;
-  margin-bottom: 4px;
-`;
-const Name = styled.div`
+
+const Title = styled.div`
   font-size: 1rem;
   font-weight: bold;
   margin-bottom: 8px;
 `;
+
 const Price = styled.div`
   font-size: 0.9rem;
   color: #333;

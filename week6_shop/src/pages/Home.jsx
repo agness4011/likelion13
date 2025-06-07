@@ -1,10 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
-import { products } from '../data/products';
-import ProductCard from '../components/ProductCard';
-import { Link } from 'react-router';
+import React, { useState, useEffect, useRef } from "react";
+import styled from "styled-components";
+import ProductCard from "../components/ProductCard";
+import { Link } from "react-router-dom";
+import { fetchProducts } from "../api";
+
+
+
+// API 맞춰서 기존의 name->title, image->images로 변경함 !
 
 export default function Home() {
+  // API에서 받아올 데이터 상태
+  const [products, setProducts] = useState([]);    // 배열: { id, title, price, images }
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // 정렬/필터 상태
   const [sortAsc, setSortAsc] = useState(true);
   const [sortOpen, setSortOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
@@ -13,6 +23,21 @@ export default function Home() {
   const sortRef = useRef(null);
   const filterRef = useRef(null);
 
+  // 한 번만 API 호출
+  useEffect(() => {
+    fetchProducts()
+      .then((res) => {
+        setProducts(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("상품 조회 실패:", err);
+        setError("상품을 불러오지 못했습니다.");
+        setLoading(false);
+      });
+  }, []);
+
+  // 바깥쪽 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (sortRef.current && !sortRef.current.contains(e.target)) {
@@ -22,34 +47,40 @@ export default function Home() {
         setFilterOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // 로딩/에러 처리
+  if (loading) return <Wrapper>로딩 중...</Wrapper>;
+  if (error) return <Wrapper>{error}</Wrapper>;
+
+  // 정렬하기
   const sortedProducts = [...products].sort((a, b) =>
     sortAsc ? a.price - b.price : b.price - a.price
   );
 
-  const filteredProducts = sortedProducts.filter(product => {
+ 
+  const filteredProducts = sortedProducts.filter((product) => {
     const matchSize = selectedSize ? product.size === selectedSize : true;
     const matchColor = selectedColor ? product.color === selectedColor : true;
     return matchSize && matchColor;
   });
 
   const handleSort = (order) => {
-    setSortAsc(order === 'asc');
+    setSortAsc(order === "asc");
     setSortOpen(false);
   };
-
   const handleSizeSelect = (size) => {
     setSelectedSize(size);
     setFilterOpen(false);
   };
-
   const handleColorSelect = (color) => {
     setSelectedColor(color);
     setFilterOpen(false);
   };
+
+
 
   return (
     <Wrapper>
@@ -57,51 +88,66 @@ export default function Home() {
         <Title>Sneakers</Title>
         <Controls>
           <SortToggle ref={sortRef}>
-            <button onClick={() => setSortOpen(prev => !prev)}>정렬</button>
+            <button onClick={() => setSortOpen((p) => !p)}>정렬</button>
             {sortOpen && (
               <Dropdown>
-                <DropdownOption onClick={() => handleSort('asc')}>낮은 가격순</DropdownOption>
+                <DropdownOption onClick={() => handleSort("asc")}>
+                  낮은 가격순
+                </DropdownOption>
                 <Divider />
-                <DropdownOption onClick={() => handleSort('desc')}>높은 가격순</DropdownOption>
+                <DropdownOption onClick={() => handleSort("desc")}>
+                  높은 가격순
+                </DropdownOption>
               </Dropdown>
             )}
           </SortToggle>
+
           <FilterToggle ref={filterRef}>
-            <button onClick={() => setFilterOpen(prev => !prev)}>필터</button>
+            <button onClick={() => setFilterOpen((p) => !p)}>필터</button>
             {filterOpen && (
               <Dropdown>
-                <DropdownOption onClick={() => handleSizeSelect('260')}>사이즈 260</DropdownOption>
+                <DropdownOption onClick={() => handleSizeSelect("260")}>
+                  사이즈 260
+                </DropdownOption>
                 <Divider />
-                <DropdownOption onClick={() => handleSizeSelect('270')}>사이즈 270</DropdownOption>
+                <DropdownOption onClick={() => handleSizeSelect("270")}>
+                  사이즈 270
+                </DropdownOption>
                 <Divider />
-                <DropdownOption onClick={() => handleSizeSelect('280')}>사이즈 280</DropdownOption>
+                <DropdownOption onClick={() => handleSizeSelect("280")}>
+                  사이즈 280
+                </DropdownOption>
                 <Divider />
-                <DropdownOption onClick={() => handleColorSelect('white')}>화이트</DropdownOption>
+                <DropdownOption onClick={() => handleColorSelect("white")}>
+                  화이트
+                </DropdownOption>
                 <Divider />
-                <DropdownOption onClick={() => handleColorSelect('black')}>블랙</DropdownOption>
+                <DropdownOption onClick={() => handleColorSelect("black")}>
+                  블랙
+                </DropdownOption>
                 <Divider />
-                <DropdownOption onClick={() => handleColorSelect('grey')}>그레이</DropdownOption>
+                <DropdownOption onClick={() => handleColorSelect("grey")}>
+                  그레이
+                </DropdownOption>
               </Dropdown>
             )}
           </FilterToggle>
         </Controls>
       </TopBar>
+
       <ProductList>
-        {filteredProducts.map(item => (
+        {filteredProducts.map((item) => (
           <Link
-           key={item.id}
-           to={`/detail/${item.id}`}
-           style={{ textDecoration: 'none',
-           color:'inherit'}}
-          >
-          <ProductCard
             key={item.id}
-            id={item.id}
-            brand={item.brand}
-            name={item.name}
-            price={item.price}
-            image={item.image}
-          />
+            to={`/detail/${item.id}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <ProductCard
+              id={item.id}
+              title={item.title}     
+              price={item.price}
+              images={item.images}   
+            />
           </Link>
         ))}
       </ProductList>
@@ -140,8 +186,8 @@ const SortToggle = styled.div`
     outline: none;
     &:focus,
     &:focus-visible {
-      border: 1px solid #000000;
-      color: #000000
+      border: 1px solid #000;
+      color: #000;
     }
   }
 `;
@@ -162,8 +208,7 @@ const DropdownOption = styled.div`
   font-size: 0.95rem;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.2s ease;
-
+  transition: back-ground 0.2s ease;
   &:hover {
     background: #eee;
   }

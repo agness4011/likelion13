@@ -1,0 +1,119 @@
+/* src/components/FindTimeModal/FindTimeModal.module.scss */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.badge {
+  display: inline-block;
+  position: absolute;
+  top: 140px;
+  left: 160px;
+  background: #e0e0e0;
+  color: #333;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.closeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+.input {
+  margin-top: 4px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.pickers {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.rangeSep {
+  margin: 0 8px;
+  color: #888;
+}
+.partSearch {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.iconBtn {
+  position: absolute;
+  right: 28px;
+  background: none;
+  top: 4%;
+  border: none;
+  cursor: pointer;
+}
+.partList {
+  margin-top: 4px;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.partItem {
+  background: #f0f0f0;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+.dateRange,
+.timeRange {
+  display: flex;
+  align-items: center;
+}
+.duration {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.spinnerBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+.durationValue {
+  min-width: 36px;
+  text-align: center;
+}
+.searchBtn {
+  margin-top: 8px;
+  background: #000;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}

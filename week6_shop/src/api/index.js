@@ -1,28 +1,39 @@
 import axios from "axios";
 
-const BASE_URL = "/api";
+const api = axios.create({
+  baseURL: "/api", // 실제 백엔드 API 경로
+  timeout: 5000,
+  headers: { "Content-Type": "application/json" },
+});
 
-// 모든 상품 조회
+// 요청 인터셉터 (예: 토큰 자동 삽입)
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
+// 응답 인터셉터 (예: 에러 전역 처리)
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  }
+);
+
+// ✅ 여기를 추가해야 함!
+export const APIService = {
+  public: api,
+};
 export function fetchProducts() {
-  return axios.get(`${BASE_URL}/products`);
+  return api.get("/products");
 }
-
-// 단일 상품 상세 조회
-export function fetchProductById(id) {
-  return axios.get(`${BASE_URL}/products/${id}`);
-}
-
-// 상품 생성
-export function createProduct(data) {
-  return axios.post(`${BASE_URL}/products`, data);
-}
-
-// 상품 수정
-export function updateProduct(id, data) {
-  return axios.put(`${BASE_URL}/products/${id}`, data);
-}
-
-// 상품 삭제
 export function deleteProduct(id) {
-  return axios.delete(`${BASE_URL}/products/${id}`);
+  return api.delete(`/products/${id}`);
+}
+export function createProduct(data) {
+  return api.post("/products", data);
 }
